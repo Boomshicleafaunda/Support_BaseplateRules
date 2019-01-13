@@ -5,6 +5,9 @@
 <p align="center"><sup><i>Adds baseplate alignment and adjacency rules for building</i></sup></p>
 
 <p align="center"><strong>Release:</strong> 1.0.0</p>
+<p align="center"><strong>Download:</strong>
+ <a href="https://github.com/Boomshicleafaunda/Support_BaseplateRules/archive/v1.0.0.zip">GitHub</a>
+</p>
 
 ## About Baseplate Rules
 
