@@ -4,7 +4,7 @@
 
 <p align="center"><sup><i>Adds baseplate alignment and adjacency rules for building</i></sup></p>
 
-<p align="center"><strong>Release:</strong> 1.0.2</p>
+<p align="center"><strong>Release:</strong> 1.0.0</p>
 
 ## About Baseplate Rules
 
