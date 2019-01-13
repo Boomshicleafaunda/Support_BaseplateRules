@@ -1,0 +1,3 @@
+Title: Baseplate Rules
+Author: Boom
+Adds Baseplate Alignment and Adjacency Rules for building
