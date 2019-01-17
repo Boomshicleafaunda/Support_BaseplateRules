@@ -50,7 +50,13 @@ function fxDTSBrick::onAlignmentFail(%brick)
 	}
 }
 
-// Performs an Alignment Check on the calling Brick
+// /**
+//  * Performs an alignment check on the calling brick.
+//  *
+//  * @param  {fxDTSBrick}  %brick  The calling brick.
+//  *
+//  * @return {boolean}
+//  */
 function fxDTSBrick::doAlignmentCheck(%brick)
 {
 	// Call the alignment check to make sure we should do it
@@ -75,43 +81,35 @@ function fxDTSBrick::doAlignmentCheck(%brick)
 	return %success;
 }
 
-// Returns whether or not the calling Brick is Aligned to the Grid
+// /**
+//  * Returns whether or not the calling brick is aligned to the grid.
+//  *
+//  * @param  {fxDTSBrick}  %brick  The calling brick.
+//  *
+//  * @return {boolean}
+//  */
 function fxDTSBrick::isAligned(%brick)
 {
-	// Determine the Position of the Brick
-	%transform = getWords(%brick.getTransform(), 0, 2);
+	// Determine the position of the brick
+	%position = getWords(%brick.getTransform(), 0, 2);
 
-	// Determine the Aligned Position of the Brick
+	// Determine the aligned position of the brick
 	%alignment = %brick.getAlignment();
 
-	// Check Alignment
-	if(%transform !$= %alignment)
-		return false;
-
-	// Check for proper size
-	%sizeX = %brick.getDatablock().brickSizeX;
-	%sizeY = %brick.getDatablock().brickSizeY;
-
-	// Flip Sizes if Necessary
-	if(mAbs(mFloatLength(getWord(%brick.rotation, 3), 0)) == 90)
-	{
-		// Swap Sizes
-		%temp = %sizeX;
-		%sizeX = %sizeY;
-		%sizeY = %temp;
-	}
-
-	// Make sure Brick can fill a Cell
-	if(%sizeX < $Support::Baseplate::Alignment::Width || %sizeY < $Support::Baseplate::Alignment::Length)
-		return false;
-
-	return true;
+	// Return whether or not the brick is aligned
+	return %position $= %alignment;
 }
 
-// Moves the calling Brick to the nearest Aligned Position
+
+// /**
+//  * Moves the calling brick to the nearest aligned position.
+//  *
+//  * @param  {fxDTSBrick}  %brick  The calling brick.
+//  *
+//  * @return {void}
+//  */
 function fxDTSBrick::align(%brick)
 {
-	// Align the Brick
 	%brick.setTransform(%brick.getAlignment());
 }
 
@@ -129,6 +127,19 @@ function fxDTSBrick::getAlignment(%brick)
 	%gridCellLength = $Support::Baseplate::Alignment::Length;
 	%gridXOffset = $Support::Baseplate::Alignment::XOffset;
 	%gridYOffset = $Support::Baseplate::Alignment::YOffset;
+
+	// If baseplate alignment isn't actually enabled, then the callers of
+	// this method might try to use faulty logic. We should instead use
+	// the proper size of the brick, as if it was on a 1x1 cell grid.
+
+	// Check if alignment is disabled
+	if(!$Support::Baseplate::Alignment::Enabled) {
+
+		// Use a 1x1 grid
+		%gridCellWidth = 1;
+		%gridCellLength = 1;
+
+	}
 
 	// The global position of bricks is not as neat as one would expect.
 	// Every 1 meter counts as 2 blocks laterally. Because of this,
@@ -220,12 +231,25 @@ function fxDTSBrick::getAlignmentGridSize(%brick)
 	%brickLength = mAbs(%rotation) == 90 ? %sizeX : %sizeY;
 
 	// Determine the cell size of the grid
-	%gridWidth = $Support::Baseplate::Alignment::Width;
-	%gridLength = $Support::Baseplate::Alignment::Length;
+	%gridCellWidth = $Support::Baseplate::Alignment::Width;
+	%gridCellLength = $Support::Baseplate::Alignment::Length;
+
+	// If baseplate alignment isn't actually enabled, then the callers of
+	// this method might try to use faulty logic. We should instead use
+	// the proper size of the brick, as if it was on a 1x1 cell grid.
+
+	// Check if alignment is disabled
+	if(!$Support::Baseplate::Alignment::Enabled) {
+
+		// Use a 1x1 grid
+		%gridCellWidth = 1;
+		%gridCellLength = 1;
+
+	}
 
 	// Determine the brick size in grid units
-	%cellWidth = mFloor(%brickWidth / %gridWidth);
-	%cellLength = mFloor(%brickLength / %gridLength);
+	%cellWidth = mFloor(%brickWidth / %gridCellWidth);
+	%cellLength = mFloor(%brickLength / %gridCellLength);
 
 	// Return the size of the brick in grid units
 	return %cellWidth SPC %cellLength;

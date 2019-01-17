@@ -4,7 +4,43 @@
 // Defines the baseplate portion of this add-on.
 
 // /**
-//  * Returns whether or not the calling brick is on the gound.
+//  * Performs the baseplate plant brick check on the calling client.
+//  *
+//  * @param  {GameConnection}  %client  The calling client.
+//  * @param  {fxDTSBrick}      %brick   The brick attempting to be planted.
+//  *
+//  * @return {boolean}
+//  */
+function GameConnection::doBaseplatePlantBrickCheck(%client, %brick)
+{
+	// If no brick was provided, use the player temp brick
+	if(%brick $= "") {
+		%brick = %client.player.tempBrick;
+	}
+
+	// Make sure the brick exists
+	if(!isObject(%brick)) {
+		return true;
+	}
+
+	// Perform the baseplate check
+	if((%reason = %brick.doBaseplateCheck(true)) !$= true) {
+
+		// Send the reason to the client
+		%client.sendBaseplateReasonMessage(%reason);
+
+		// Prevent the brick from being planted
+		return false;
+
+	}
+
+	// Use the default functionality
+	return true;
+}
+
+
+// /**
+//  * Returns whether or not the calling brick is on the ground.
 //  *
 //  * @param  {fxDTSBrick}  %brick  The calling brick.
 //  *

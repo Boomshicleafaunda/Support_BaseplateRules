@@ -20,27 +20,63 @@ package Support_BaseplateAlignment_Package
 	//  */
 	function serverCmdPlantBrick(%client)
 	{
-		// Determine the brick attempting to being planted
-		%brick = %client.player.tempBrick;
-
-		// Make sure the brick exists
-		if(!isObject(%brick)) {
-			return Parent::serverCmdPlantBrick(%client);
-		}
-
-		// Perform the baseplate check
-		if((%reason = %brick.doBaseplateCheck(true)) !$= true) {
-
-			// Send the reason to the client
-			%client.sendBaseplateReasonMessage(%reason);
-
-			// Prevent the brick from being planted
+		// Perform the baseplate plant brick check
+		if(!%client.doBaseplatePlantBrickCheck()) {
 			return;
-
 		}
 
 		// Use the default functionality
 		return Parent::serverCmdPlantBrick(%client);
+	}
+
+	// Certain mods will plant bricks without calling the plant brick
+	// server command. Just to cover our bases, we're going to use
+	// overrides for both "/plantbrick" and fxDTSBrick.plant().
+
+	// /**
+	//  * Attempts to plant the calling brick.
+	//  *
+	//  * @param  {fxDTSBrick}  %brick  The calling brick.
+	//  *
+	//  * @return {integer}
+	//  */
+	function fxDTSBrick::plant(%brick)
+	{
+		// Determine the client
+		%client = %brick.client;
+
+		// If the brick has a client, perform the baseplate plant brick check
+		if(isObject(%client) && !%client.doBaseplatePlantBrickCheck(%brick)) {
+			return 4; // Unstable
+		}
+
+		// If there is no client, still perform the baseplate plant brick check
+		if(!isObject(%client) && !%brick.doBaseplateCheck()) {
+			return 4; // Unstable
+		}
+
+		// Use the default functionality
+		return Parent::plant(%brick);
+	}
+
+	// If you are a cheeky bastard, then you may have noticed that a
+	// brick in its death animation still counts as adjaceny. Even
+	// though the brick can be killed later on, it's not clean.
+
+	// /**
+	//  * Triggered when the calling brick is being killed.
+	//  *
+	//  * @param  {fxDTSBrick}  %brick  The calling brick.
+	//  *
+	//  * @return {integer}
+	//  */
+	function fxDTSBrick::onDeath(%brick)
+	{
+		// Mark the brick as dead
+		%brick.isDead = true;
+
+		// Use the default functionality
+		return Parent::onDeath(%brick);
 	}
 };
 
