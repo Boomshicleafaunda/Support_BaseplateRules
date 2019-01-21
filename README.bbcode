@@ -1,0 +1,78 @@
+[center][size=24pt][b]Baseplate Rules[/b][/size][/center]
+
+[center]
+[sup][i]Adds baseplate alignment and adjacency rules for building[/i][/sup]
+[/center]
+
+[center][b]Release:[/b] 1.0.2[/center]
+[center][b]Download:[/b] [url=https://github.com/Boomshicleafaunda/Support_BaseplateRules/archive/v1.0.1.zip]GitHub[/url] | [url=https://blocklandglass.com/addons/download.php?id=1032]Blockland Glass[/url][/center]
+
+[size=18pt][b]About Baseplate Rules[/b][/size]
+[hr]
+
+Baseplate Rules provide Alignment and Adjacency rules for building. When Baseplate Rules are enabled, all players will be required to start all of their builds on a baseplate. When Baseplate Alignment is enabled, the starting baseplate must be aligned to a configurable grid. When Baseplate Adjacency is enabled, the starting baseplate must be placed adjacent (directly next to) another baseplate.
+
+[size=18pt][b]Preferences for Baseplate Rules[/b][/size]
+[hr]
+
+Baseplate Rules are completely configurable. Here are all of the preferences:
+
+[size=14pt][b]Baseplate Preferences[/b][/size]
+
+[size=12pt]Baseplate Required[/size]
+
+When enabled, players are required to start all of their builds on a baseplate.
+
+> [b]Note:[/b] You can use the [tt]/baseplaterules enable[/tt] command require baseplates. Similarly, you can use the [tt]/baseplaterules disable[/tt] command to no longer require baseplates. By default, baseplate rules are enabled.
+
+[size=12pt]Baseplate Type[/size]
+
+It can be configured such that not all baseplates from the "Baseplates" category can be used as starting baseplates. Using this preference, you can configure the starting baseplate to be one of three types:
+
+[list]
+[li][b]Any:[/b] Any brick from the baseplate category.[/li]
+[li][b]Plate:[/b] Any 1/3x tall plate brick from the baseplate category.[/li]
+[li][b]Plain:[/b] Any brick from the Plain baseplate subcategory.[/li]
+[/list]
+ 
+ > [b]Note:[/b] You can use the [tt]/baseplaterules type set <type>[/tt] command to set the required baseplate type. By default, the required baseplate type is set to "Any".
+
+[size=14pt][b]Adjacency Preferences[/b][/size]
+
+[size=12pt]Use Adjacency[/size]
+
+When enabled, players are required to place their starting baseplate adjacent to another baseplate.
+
+> [b]Note:[/b] You can use the [tt]/baseplaterules adjacency enable[/tt] command to enable adjacency rules. Similarly, you can use the [tt]/baseplaterules adjacency disable[/tt] command to disable adjacency rules. By default, adjacency rules are enabled.
+
+[size=12pt]Include Diagonals[/size]
+
+When enabled, baseplates diagonally positioned are considered adjacent.
+
+> [b]Note:[/b] You can use the [tt]/baseplaterules adjacency diagonals enable[/tt] command to allow diagonal adjacency. Similarly, you can use the [tt]/baseplaterules adjacency diagonals disable[/tt] command to no longer allow diagonal adjacency. By default, diagonal adjacency is not allowed.
+
+[size=14pt][b]Alignment Preferences[/b][/size]
+
+[size=12pt]Use Alignment[/size]
+
+When enabled, players are required to align their baseplates to a configurable grid.
+
+> [b]Note:[/b] You can use the [tt]/baseplaterules alignment enable[/tt] command to enable alignment rules. Similarly, you can use the [tt]/baseplaterules alignment disable[/tt] command to disable alignment rules. By default, alignment rules are enabled.
+
+[size=12pt]Auto Alignment[/size]
+
+When enabled, players attempting to place a misaligned baseplate will have their ghost brick automatically realigned for them.
+
+> [b]Note:[/b] You can use the [tt]/baseplaterules alignment auto enable[/tt] command to enable auto alignment. Similarly, you can use the [tt]/baseplaterules alignment auto disable[/tt] command to disable auto alignment. By default, auto alignment is enabled.
+
+[size=12pt]Grid Cell Size[/size]
+
+The alignment grid is configurable in such a way that allows you to control the grid cell size.
+
+> [b]Note:[/b] You can use the [tt]/baseplaterules alignment grid set <X> <Y>[/tt] command to update the grid cell size. Both the [tt]<X>[/tt] and [tt]<Y>[/tt] values must be valid integers between 1 and 1024. By default, the grid cell size is set to 16x16.
+
+[size=12pt]Grid Offset[/size]
+
+The alignment grid is configurable in such a way that allows you to control the grid offset. This should really only be used when trying to snap the grid to a preexisting build or terrain-based obstable. In an flat freebuild world, adjusting the grid offset is unnecessary.
+
+> [b]Note:[/b] You can use the [tt]/baseplaterules alignment offset set <X> <Y>[/tt] command to update the grid offset. Both the [tt]<X>[/tt] and [tt]<Y>[/tt] values must be valid integers between 0 and 1024. By default, the grid offset is set to 0x0.

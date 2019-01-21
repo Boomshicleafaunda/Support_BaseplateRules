@@ -13,3 +13,12 @@
 	</ul>
 
 </version>
+
+<version:1.0.2>
+
+	<h3>Fixed</h3>
+	<ul>
+		<li>Baseplate Rules are now ignored while loading bricks</li>
+	</ul>
+
+</version>

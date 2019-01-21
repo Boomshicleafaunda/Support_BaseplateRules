@@ -4,7 +4,7 @@
 
 <p align="center"><sup><i>Adds baseplate alignment and adjacency rules for building</i></sup></p>
 
-<p align="center"><strong>Release:</strong> 1.0.1</p>
+<p align="center"><strong>Release:</strong> 1.0.2</p>
 <p align="center"><strong>Download:</strong>
  <a href="https://github.com/Boomshicleafaunda/Support_BaseplateRules/archive/v1.0.1.zip">GitHub</a> | <a href="https://blocklandglass.com/addons/download.php?id=1032">Blockland Glass</a>
 </p>
