@@ -78,6 +78,36 @@ package Support_BaseplateAlignment_Package
 		// Use the default functionality
 		return Parent::onDeath(%brick);
 	}
+
+	// /**
+	//  * Triggered for each tick of a save file being loaded.
+	//  *
+	//  * @return {void}
+	//  */
+	function ServerLoadSaveFile_Tick()
+	{
+		// If baseplate rules are disabled, carry on
+		if(!$Support::Baseplate::Required) {
+			return Parent::ServerLoadSaveFile_Tick();
+		}
+
+		// When baseplate rules are enabled, certain bricks may get
+		// loaded that violate baseplate rules. However, we can't
+		// assume that the bricks are supposed to follow rules.
+
+		// Temporarily disable baseplate rules
+		$Support::Baseplate::Required = 0;
+
+		// Call the parent function
+		%result = Parent::ServerLoadSaveFile_Tick();
+
+		// Enable baseplate rules
+		$Support::Baseplate::Required = 1;
+
+		// Return the result
+		return %result;
+	}
+
 };
 
 // Activate the package
